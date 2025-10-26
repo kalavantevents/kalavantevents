@@ -3,303 +3,631 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalawant Events - Your Perfect Partner for Every Celebration</title>
+    <title>Kalawant Events - Luxury Event Curators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --gold: #C9A961;
+            --gold-light: #E5D4A8;
+            --gold-dark: #9F7F3B;
+            --champagne: #F7E7CE;
+            --black: #0D0D0D;
+            --deep-black: #000000;
+            --charcoal: #1A1A1A;
+            --silver: #E8E8E8;
+            --white: #FFFFFF;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap');
-
-        body {
-            font-family: 'Cormorant Garamond', serif;
-            background-color: #000;
-            color: #d4af37;
-            overflow-x: hidden;
-            line-height: 1.8;
-            letter-spacing: 0.5px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Navigation */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--deep-black);
+            color: var(--champagne);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ultra Premium Cursor */
+        .luxury-cursor {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Elegant Page Loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--deep-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 72px;
+            font-weight: 300;
+            color: var(--gold);
+            letter-spacing: 12px;
+            margin-bottom: 40px;
+            animation: fadeGlow 2s ease-in-out infinite;
+        }
+
+        .loader-line {
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: var(--gold-light);
+            box-shadow: 0 0 20px var(--gold);
+            animation: loadSlide 2s ease-in-out infinite;
+        }
+
+        @keyframes loadSlide {
+            0%, 100% { left: 0; }
+            50% { left: 50%; }
+        }
+
+        @keyframes fadeGlow {
+            0%, 100% { opacity: 0.5; text-shadow: 0 0 30px rgba(201, 169, 97, 0.3); }
+            50% { opacity: 1; text-shadow: 0 0 60px rgba(201, 169, 97, 0.6); }
+        }
+
+        /* Luxury Background Effects */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Premium Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 50px;
+            padding: 30px 100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav.scrolled {
-            background: rgba(212, 175, 55, 0.95);
-            padding: 15px 50px;
+            background: rgba(13, 13, 13, 0.95);
+            padding: 20px 100px;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 97, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
         }
 
         .logo {
-            font-size: 32px;
-            font-weight: 700;
-            color: #d4af37;
-            transition: color 0.3s ease;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            color: var(--gold);
+            letter-spacing: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
         }
 
-        nav.scrolled .logo {
-            color: #000;
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 8px;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            width: 8px;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .logo:hover::before,
+        .logo:hover::after {
+            width: 40px;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 60px;
+            align-items: center;
         }
 
         .nav-links a {
-            color: #d4af37;
+            color: var(--champagne);
             text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            position: relative;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        nav.scrolled .nav-links a {
-            color: #000;
+            transition: all 0.4s ease;
+            position: relative;
+            padding: 5px 0;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
-            height: 2px;
-            background: #d4af37;
-            transition: width 0.3s ease;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
         }
 
         .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* Hero Section */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section - Ultra Luxury */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23111" width="1200" height="800"/><circle cx="200" cy="200" r="100" fill="%23d4af37" opacity="0.1"/><circle cx="800" cy="400" r="150" fill="%23d4af37" opacity="0.1"/><circle cx="1000" cy="600" r="80" fill="%23d4af37" opacity="0.1"/></svg>');
-            background-size: cover;
-            background-position: center;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(180deg, var(--deep-black) 0%, var(--black) 50%, var(--charcoal) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(201,169,97,0.05) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
         }
 
         .hero-content {
-            animation: fadeInUp 1.5s ease;
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            padding: 0 40px;
+        }
+
+        .hero-ornament {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 40px;
+            position: relative;
+            animation: expandLine 2s ease 0.5s backwards;
+        }
+
+        .hero-ornament::before,
+        .hero-ornament::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-ornament::before { left: 0; }
+        .hero-ornament::after { right: 0; }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 80px; opacity: 1; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.8s forwards;
         }
 
         .hero h1 {
-            font-size: 72px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 20px rgba(212, 175, 55, 0.7);
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .hero p {
-            font-size: 28px;
-            margin-bottom: 40px;
-            color: #f5f5f5;
             font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            letter-spacing: 1.5px;
+            font-size: clamp(60px, 10vw, 140px);
+            font-weight: 300;
+            letter-spacing: 20px;
+            color: var(--gold);
+            margin-bottom: 40px;
+            line-height: 1.2;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 1s forwards;
+            text-shadow: 0 0 80px rgba(201, 169, 97, 0.3);
         }
 
-        .cta-button {
+        .hero-tagline {
+            font-family: 'Lato', sans-serif;
+            font-size: clamp(16px, 2.5vw, 24px);
+            color: var(--champagne);
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 1.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .luxury-button {
             display: inline-block;
-            padding: 18px 45px;
+            padding: 22px 60px;
             background: transparent;
-            border: 2px solid #d4af37;
-            color: #d4af37;
+            border: 1px solid var(--gold);
+            color: var(--gold);
             text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
             position: relative;
             overflow: hidden;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 600;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 1.4s forwards;
         }
 
-        .cta-button::before {
+        .luxury-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--gold);
+            transform: translate(-50%, -50%);
+            transition: width 0.8s ease, height 0.8s ease;
+            z-index: -1;
+        }
+
+        .luxury-button:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .luxury-button:hover {
+            color: var(--deep-black);
+            box-shadow: 0 0 40px rgba(201, 169, 97, 0.4);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 1.6s forwards;
+        }
+
+        .scroll-down span {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(180deg, var(--gold), transparent);
+            animation: scrollMove 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollMove {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 160px 100px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(48px, 7vw, 90px);
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: var(--champagne);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        /* Premium Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(13, 13, 13, 0.8) 100%);
+            padding: 80px 50px;
+            text-align: center;
+            border: 1px solid rgba(201, 169, 97, 0.15);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: -1;
+        }
+
+        .service-card::after {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: #d4af37;
-            transition: left 0.3s ease;
-            z-index: -1;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.05), transparent);
+            transition: left 1s ease;
         }
 
-        .cta-button:hover::before {
-            left: 0;
-        }
-
-        .cta-button:hover {
-            color: #000;
-        }
-
-        /* Section Styling */
-        section {
-            padding: 100px 50px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 52px;
-            margin-bottom: 60px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: #d4af37;
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            padding: 50px 40px;
-            text-align: center;
-            border: 2px solid #222;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
+        .service-card:hover::after {
+            left: 100%;
         }
 
         .service-card:hover::before {
-            transform: translateX(100%);
+            opacity: 1;
         }
 
         .service-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-15px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            transform: translateY(-20px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            border-color: var(--gold);
+        }
+
+        .service-number {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            font-weight: 300;
+            color: rgba(201, 169, 97, 0.1);
+            line-height: 1;
         }
 
         .service-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
+            font-size: 80px;
+            margin-bottom: 40px;
+            display: inline-block;
+            transition: all 0.8s ease;
+            filter: grayscale(0.3);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.15);
+            filter: grayscale(0);
         }
 
         .service-card h3 {
-            font-size: 26px;
-            margin-bottom: 15px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--gold);
         }
 
         .service-card p {
-            color: #b8b8b8;
-            margin-bottom: 20px;
-            font-size: 17px;
-            line-height: 1.7;
+            color: var(--champagne);
+            margin-bottom: 35px;
+            font-size: 15px;
+            line-height: 1.9;
+            opacity: 0.8;
         }
 
-        .learn-more {
-            color: #d4af37;
+        .service-link {
+            color: var(--gold);
             text-decoration: none;
-            border-bottom: 1px solid #d4af37;
-            transition: all 0.3s ease;
-            font-family: 'Cinzel', serif;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-weight: 400;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: 11px;
+            position: relative;
+            transition: all 0.4s ease;
+            display: inline-block;
         }
 
-        .learn-more:hover {
-            color: #fff;
-            border-color: #fff;
+        .service-link::after {
+            content: '→';
+            margin-left: 15px;
+            transition: margin-left 0.4s ease;
         }
 
-        /* Gallery Section */
+        .service-link:hover::after {
+            margin-left: 25px;
+        }
+
+        /* Luxury Gallery */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         .gallery-item {
             position: relative;
-            height: 300px;
+            height: 500px;
             overflow: hidden;
-            border: 3px solid #d4af37;
             cursor: pointer;
-            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            transition: all 0.8s ease;
         }
 
         .gallery-item::before {
@@ -309,13 +637,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #d4af37 0%, #000 100%);
-            opacity: 0.3;
-            transition: opacity 0.3s ease;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            opacity: 0.7;
+            transition: opacity 0.6s ease;
+            z-index: 1;
         }
 
         .gallery-item:hover::before {
-            opacity: 0.7;
+            opacity: 0.4;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-item:hover .gallery-placeholder {
+            transform: scale(1.1);
         }
 
         .gallery-overlay {
@@ -323,88 +667,115 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 25px;
-            background: rgba(0,0,0,0.9);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            letter-spacing: 1px;
+            padding: 50px;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease;
         }
 
         .gallery-item:hover .gallery-overlay {
             transform: translateY(0);
+            opacity: 1;
         }
 
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #222 0%, #111 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+        .gallery-overlay h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            font-weight: 400;
         }
 
-        /* Testimonials */
+        /* Premium About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 20px;
+            line-height: 2.2;
+            color: var(--champagne);
+            letter-spacing: 1px;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        /* Elegant Testimonials */
         .testimonials-container {
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
         }
 
         .testimonial-card {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            padding: 45px;
-            border-left: 4px solid #d4af37;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(13, 13, 13, 0.7) 100%);
+            padding: 70px 60px;
+            border-left: 2px solid var(--gold);
             position: relative;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            transition: all 0.6s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            border-left-color: var(--gold-light);
         }
 
         .testimonial-card::before {
             content: '"';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 80px;
-            color: #d4af37;
-            opacity: 0.2;
+            top: 30px;
+            left: 30px;
+            font-size: 150px;
+            color: var(--gold);
+            opacity: 0.08;
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1;
         }
 
         .testimonial-text {
-            color: #d4d4d4;
-            margin-bottom: 20px;
+            color: var(--champagne);
+            margin-bottom: 40px;
             font-style: italic;
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 17px;
+            line-height: 2;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
         }
 
         .testimonial-author {
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            letter-spacing: 0.5px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            margin-bottom: 10px;
+            font-size: 24px;
+            letter-spacing: 1px;
+            color: var(--gold);
         }
 
         .testimonial-event {
-            color: #999;
-            font-size: 15px;
-            font-style: italic;
+            color: var(--silver);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
         }
 
-        /* Contact Section */
+        /* Luxury Contact Form */
         .contact-container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            gap: 40px;
         }
 
         .form-group {
@@ -413,164 +784,256 @@
         }
 
         .form-group label {
-            margin-bottom: 8px;
-            font-size: 17px;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-size: 11px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 400;
+            color: var(--gold);
         }
 
         .form-group input,
         .form-group textarea {
-            padding: 18px;
-            background: #0a0a0a;
-            border: 2px solid #333;
-            color: #d4af37;
+            padding: 25px;
+            background: rgba(26, 26, 26, 0.5);
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            color: var(--champagne);
             font-size: 16px;
-            transition: all 0.3s ease;
-            font-family: 'Cormorant Garamond', serif;
+            transition: all 0.4s ease;
+            font-family: 'Lato', sans-serif;
+            backdrop-filter: blur(10px);
+            letter-spacing: 1px;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(201, 169, 97, 0.2);
+            background: rgba(26, 26, 26, 0.8);
         }
 
         .contact-info {
-            margin-top: 40px;
+            margin-top: 80px;
             text-align: center;
+            padding: 70px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.5) 0%, rgba(13, 13, 13, 0.7) 100%);
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 4px;
         }
 
         .contact-info p {
-            font-size: 22px;
-            margin: 15px 0;
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 0.5px;
+            font-size: 18px;
+            margin: 25px 0;
+            letter-spacing: 2px;
         }
 
         .contact-info a {
-            color: #d4af37;
+            color: var(--gold);
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        /* Footer */
+        .contact-info a:hover {
+            color: var(--gold-light);
+        }
+
+        /* Premium Footer */
         footer {
-            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
-            padding: 60px 50px;
+            background: var(--deep-black);
+            padding: 100px 100px 50px;
             text-align: center;
-            border-top: 3px solid #d4af37;
-            box-shadow: 0 -5px 20px rgba(212, 175, 55, 0.1);
+            border-top: 1px solid rgba(201, 169, 97, 0.2);
+            position: relative;
         }
 
         footer h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 28px;
-            letter-spacing: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .footer-tagline {
+            font-size: 13px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            color: var(--champagne);
+            margin-bottom: 50px;
+            opacity: 0.7;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin: 20px 0;
+            gap: 50px;
+            margin: 50px 0;
         }
 
         .social-links a {
-            color: #d4af37;
-            font-size: 24px;
-            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 20px;
+            transition: all 0.4s ease;
         }
 
         .social-links a:hover {
-            color: #fff;
-            transform: scale(1.2);
+            background: var(--gold);
+            color: var(--deep-black);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.4);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #d4af37;
-            margin: 4px 0;
-            transition: 0.3s;
+        .footer-copyright {
+            margin-top: 60px;
+            font-size: 12px;
+            color: rgba(232, 232, 232, 0.5);
+            letter-spacing: 2px;
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
             nav {
-                padding: 15px 20px;
+                padding: 25px 60px;
             }
 
-            .menu-toggle {
+            section {
+                padding: 120px 60px;
+            }
+
+            .services-grid,
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            nav.scrolled {
+                padding: 15px 30px;
+            }
+
+            .hamburger {
                 display: flex;
             }
 
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 0;
                 right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 400px;
                 flex-direction: column;
-                background: rgba(0,0,0,0.95);
-                padding: 30px;
-                width: 250px;
-                transition: right 0.3s ease;
+                background: rgba(13, 13, 13, 0.98);
+                padding: 120px 40px;
+                transition: right 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                border-left: 1px solid var(--gold);
+                backdrop-filter: blur(20px);
+                gap: 40px;
+                align-items: flex-start;
             }
 
             .nav-links.active {
                 right: 0;
             }
 
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 18px;
+            .logo {
+                font-size: 32px;
+                letter-spacing: 6px;
             }
 
             section {
-                padding: 60px 20px;
+                padding: 100px 30px;
             }
 
             .section-title {
-                font-size: 32px;
+                font-size: 48px;
+                letter-spacing: 4px;
             }
 
             .services-grid,
+            .gallery-grid,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
             .gallery-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .gallery-item {
+                height: 400px;
+            }
+
+            .service-card,
+            .testimonial-card {
+                padding: 60px 40px;
+            }
+
+            footer {
+                padding: 80px 30px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: 8px;
+            }
+
+            .hero-subtitle {
+                font-size: 11px;
+                letter-spacing: 5px;
+            }
+
+            .luxury-button {
+                padding: 18px 40px;
+                font-size: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Ultra Luxury Cursor -->
+    <div class="luxury-cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Premium Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-logo">KALAWANT</div>
+        <div class="loader-line">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Luxury Background Effects -->
+    <div class="grain-overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- Premium Navigation -->
     <nav id="navbar">
-        <div class="logo">Kalawant Events</div>
-        <div class="menu-toggle" id="menuToggle">
+        <div class="logo">KALAWANT</div>
+        <div class="hamburger" id="hamburger">
             <span></span>
             <span></span>
             <span></span>
@@ -578,8 +1041,8 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#about">About Us</a></li>
+            <li><a href="#gallery">Portfolio</a></li>
+            <li><a href="#about">Philosophy</a></li>
             <li><a href="#testimonials">Testimonials</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -588,102 +1051,110 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Kalawant Events</h1>
-            <p>Your Perfect Partner for Every Celebration</p>
-            <a href="#contact" class="cta-button">Book Your Event Today</a>
+            <div class="hero-ornament"></div>
+            <div class="hero-subtitle">Luxury Event Curators</div>
+            <h1>KALAWANT</h1>
+            <p class="hero-tagline">Crafting Timeless Celebrations</p>
+            <a href="#contact" class="luxury-button">Begin Your Journey</a>
+        </div>
+        <div class="scroll-down">
+            <span>Discover</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
     <!-- Services Section -->
     <section id="services">
-        <h2 class="section-title">Our Services</h2>
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Our Expertise</div>
+            <h2 class="section-title">Exceptional Services</h2>
+            <div class="section-divider"></div>
+        </div>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <span class="service-number">01</span>
                 <div class="service-icon">🎂</div>
-                <h3>Birthday Parties</h3>
-                <p>Make every birthday unforgettable with our creative themes and flawless execution</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <h3>Birthday Celebrations</h3>
+                <p>Curate unforgettable birthday experiences with innovative themes, bespoke décor, and meticulous attention to every cherished detail.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="service-number">02</span>
                 <div class="service-icon">💼</div>
                 <h3>Corporate Events</h3>
-                <p>Professional event management for conferences, seminars, and corporate gatherings</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <p>Elevate your corporate gatherings with sophisticated planning, seamless execution, and prestigious event management.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <span class="service-number">03</span>
                 <div class="service-icon">💍</div>
                 <h3>Wedding Planning</h3>
-                <p>Transform your dream wedding into reality with our expert planning and coordination</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <p>Transform your dream wedding into an extraordinary reality with our expert curation and flawless orchestration.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <span class="service-number">04</span>
                 <div class="service-icon">📸</div>
                 <h3>Photography</h3>
-                <p>Professional photography services to capture your precious moments forever</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <p>Capture precious moments with artistic excellence through our professional photography services and creative vision.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                <span class="service-number">05</span>
                 <div class="service-icon">🍽️</div>
                 <h3>Catering Services</h3>
-                <p>Exquisite cuisine and impeccable service for all your event catering needs</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <p>Experience exquisite cuisine and impeccable service tailored to your luxury event catering requirements.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
-            <div class="service-card">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                <span class="service-number">06</span>
                 <div class="service-icon">🎭</div>
                 <h3>Artist Management</h3>
-                <p>Book talented artists, performers, and entertainers for your special events</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✨</div>
-                <h3>Special Effects</h3>
-                <p>Stunning visual effects and production to create magical moments</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🚗</div>
-                <h3>Car Booking</h3>
-                <p>Luxury transportation services for weddings, corporate events, and special occasions</p>
-                <a href="#contact" class="learn-more">Learn More →</a>
+                <p>Engage world-class artists, performers, and entertainers to create extraordinary and memorable experiences.</p>
+                <a href="#contact" class="service-link">Discover More</a>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
     <section id="gallery">
-        <h2 class="section-title">Our Gallery</h2>
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">Portfolio</h2>
+            <div class="section-divider"></div>
+        </div>
         <div class="gallery-grid">
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
                 <div class="gallery-placeholder">🎊</div>
                 <div class="gallery-overlay">
                     <h3>Birthday Celebration</h3>
                 </div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder">💒</div>
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                <div class="gallery-placeholder">👑</div>
                 <div class="gallery-overlay">
                     <h3>Wedding Ceremony</h3>
                 </div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
                 <div class="gallery-placeholder">🏢</div>
                 <div class="gallery-overlay">
                     <h3>Corporate Event</h3>
                 </div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
                 <div class="gallery-placeholder">🎉</div>
                 <div class="gallery-overlay">
                     <h3>Anniversary Party</h3>
                 </div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
                 <div class="gallery-placeholder">🎪</div>
                 <div class="gallery-overlay">
                     <h3>Festival Event</h3>
                 </div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" data-aos="zoom-in" data-aos-delay="600">
                 <div class="gallery-placeholder">🎨</div>
                 <div class="gallery-overlay">
                     <h3>Theme Party</h3>
@@ -692,82 +1163,99 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- About Section -->
     <section id="about">
-        <h2 class="section-title">About Us</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; color: #ccc;">
-            <p style="font-size: 18px; line-height: 1.8;">
-                Kalawant Events is a premier event management company dedicated to creating unforgettable experiences. 
-                With years of expertise in the industry, we specialize in planning and executing events of all scales, 
-                from intimate birthday celebrations to grand corporate gatherings and dream weddings. Our team of 
-                passionate professionals works tirelessly to bring your vision to life, ensuring every detail is 
-                perfect and every moment is magical.
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">Philosophy</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="about-content" data-aos="fade-up" data-aos-delay="200">
+            <p>
+                Kalawant Events represents the pinnacle of luxury event curation, dedicated to crafting 
+                extraordinary experiences that transcend the ordinary. With years of distinguished expertise, 
+                we specialize in orchestrating events of all magnitudes—from intimate celebrations to grand 
+                corporate gatherings and dream weddings. Our team of passionate visionaries works tirelessly 
+                to transform your aspirations into reality, ensuring every detail reflects perfection and 
+                every moment becomes timeless. We believe in the art of celebration, where ordinary occasions 
+                evolve into extraordinary memories that endure forever.
             </p>
-            <br>
-            <a href="#contact" class="cta-button">Book Your Event Today</a>
+            <a href="#contact" class="luxury-button">Commence Your Celebration</a>
         </div>
     </section>
 
     <!-- Testimonials Section -->
     <section id="testimonials">
-        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Client Experiences</div>
+            <h2 class="section-title">Testimonials</h2>
+            <div class="section-divider"></div>
+        </div>
         <div class="testimonials-container">
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
                 <p class="testimonial-text">
-                    Kalawant Events made our wedding day absolutely magical! Every detail was perfect, 
-                    from the decoration to the coordination. Highly recommended!
+                    Kalawant Events transformed our wedding into an absolute masterpiece. Every single detail 
+                    was meticulously curated and executed to perfection. The team's dedication, creativity, 
+                    and impeccable taste exceeded all our expectations. An experience beyond compare.
                 </p>
                 <div class="testimonial-author">Priya & Rahul Sharma</div>
-                <div class="testimonial-event">Wedding Celebration</div>
+                <div class="testimonial-event">Luxury Wedding</div>
             </div>
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
                 <p class="testimonial-text">
-                    Professional, creative, and attentive. They turned our corporate event into a 
-                    memorable experience. The team was fantastic!
+                    Professional, innovative, and exceptionally attentive. They transformed our corporate 
+                    event into an unforgettable experience. The seamless coordination and premium service 
+                    quality set a new standard. Simply outstanding work.
                 </p>
                 <div class="testimonial-author">Amit Patel</div>
-                <div class="testimonial-event">Corporate Event</div>
+                <div class="testimonial-event">Corporate Gala</div>
             </div>
-            <div class="testimonial-card">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
                 <p class="testimonial-text">
-                    My daughter's birthday party was beyond our expectations! The team made it so special 
-                    and stress-free. Thank you Kalawant Events!
+                    My daughter's birthday celebration exceeded our wildest dreams. The creative themes, 
+                    stunning décor, and flawless execution made it truly magical. Kalawant Events made 
+                    everything stress-free and absolutely spectacular.
                 </p>
                 <div class="testimonial-author">Sunita Desai</div>
-                <div class="testimonial-event">Birthday Party</div>
+                <div class="testimonial-event">Birthday Celebration</div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2 class="section-title">Contact Us</h2>
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Contact</h2>
+            <div class="section-divider"></div>
+        </div>
         <div class="contact-container">
-            <form class="contact-form">
+            <form class="contact-form" data-aos="fade-up" data-aos-delay="200">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Full Name</label>
                     <input type="text" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email Address</label>
                     <input type="email" id="email" placeholder="your@email.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" placeholder="Your Phone Number" required>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Contact Number" required>
                 </div>
                 <div class="form-group">
                     <label for="event">Event Type</label>
-                    <input type="text" id="event" placeholder="Wedding, Birthday, Corporate, etc." required>
+                    <input type="text" id="event" placeholder="Wedding, Birthday, Corporate" required>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" rows="5" placeholder="Tell us about your event..." required></textarea>
+                    <label for="message">Your Vision</label>
+                    <textarea id="message" rows="6" placeholder="Share your dream celebration with us..." required></textarea>
                 </div>
-                <button type="submit" class="cta-button">Send Message</button>
+                <button type="submit" class="luxury-button">Send Inquiry</button>
             </form>
-            <div class="contact-info">
-                <p>📞 <a href="tel:9209756741">9209756741</a></p>
+            <div class="contact-info" data-aos="fade-up" data-aos-delay="400">
+                <h3>Connect With Us</h3>
+                <p>📞 <a href="tel:9209756741">+91 9209756741</a></p>
                 <p>📧 <a href="mailto:info@kalawantevents.com">info@kalawantevents.com</a></p>
                 <p>📍 Latur, Maharashtra, India</p>
             </div>
@@ -776,55 +1264,108 @@
 
     <!-- Footer -->
     <footer>
-        <h3>Kalawant Events</h3>
-        <div class="social-links">
-            <a href="#" title="Facebook">📘</a>
-            <a href="#" title="Instagram">📷</a>
-            <a href="#" title="Twitter">🐦</a>
-            <a href="#" title="WhatsApp">💬</a>
+        <h3 data-aos="fade-up">KALAWANT EVENTS</h3>
+        <p class="footer-tagline" data-aos="fade-up" data-aos-delay="100">Curating Timeless Celebrations</p>
+        <div class="social-links" data-aos="fade-up" data-aos-delay="200">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="WhatsApp">💬</a>
         </div>
-        <p style="color: #999;">© 2025 Kalawant Events. All rights reserved.</p>
-        <br>
-        <a href="#contact" class="cta-button">Contact Us for Your Dream Event</a>
+        <div class="section-divider" data-aos="fade-up" data-aos-delay="300"></div>
+        <p class="footer-copyright" data-aos="fade-up" data-aos-delay="400">© 2025 Kalawant Events. All Rights Reserved.</p>
     </footer>
 
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
     <script>
-        // Navbar scroll effect
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Page Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 2500);
+        });
+
+        // Luxury Cursor Effect
+        const luxuryCursor = document.querySelector('.luxury-cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            const speed = 0.15;
+            cursorX += (mouseX - cursorX) * speed;
+            cursorY += (mouseY - cursorY) * speed;
+            luxuryCursor.style.left = cursorX + 'px';
+            luxuryCursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .gallery-item');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                luxuryCursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                luxuryCursor.style.borderColor = 'var(--gold-light)';
+            });
+            el.addEventListener('mouseleave', () => {
+                luxuryCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                luxuryCursor.style.borderColor = 'var(--gold)';
+            });
+        });
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
 
-            // Animate sections on scroll
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (sectionTop < windowHeight * 0.75) {
-                    section.classList.add('visible');
-                }
-            });
+            lastScroll = currentScroll;
         });
 
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
-        
-        menuToggle.addEventListener('click', () => {
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Close mobile menu when clicking on a link
+        // Close mobile menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
 
-        // Smooth scrolling for anchor links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -841,12 +1382,80 @@
         // Form submission
         document.querySelector('.contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thank you for contacting Kalawant Events! We will get back to you soon.');
-            e.target.reset();
+            const button = e.target.querySelector('.luxury-button');
+            const originalText = button.textContent;
+            button.textContent = 'Sending...';
+            button.style.pointerEvents = 'none';
+            
+            setTimeout(() => {
+                button.textContent = 'Message Sent ✓';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.pointerEvents = 'auto';
+                    e.target.reset();
+                }, 2500);
+            }, 1500);
         });
 
-        // Initial animation trigger
-        window.dispatchEvent(new Event('scroll'));
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.4}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+            }
+        });
+
+        // Service cards z-index on hover
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Logo click scroll to top
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Add entrance animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.service-card, .gallery-item, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Hamburger animation
+        hamburger.addEventListener('click', function() {
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
     </script>
 </body>
 </html>
